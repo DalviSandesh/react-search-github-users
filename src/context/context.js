@@ -42,17 +42,19 @@ const GithubProvider = ({ children }) => {
 
       await Promise.allSettled([
         axios(`${rootUrl}/users/${login}/repos?per_page=100`),
-        ,
         axios(`${followers_url}`),
       ])
         .then((results) => {
           const [repos, followers] = results;
-          const status = "fulfiled";
+          // console.log(results);
+          // console.log(repos, followers);
+          const status = "fulfilled";
           if (repos.status === status) {
             setRepos(repos.value.data);
           }
           if (followers.status === status) {
             setFollowers(followers.value.data);
+            // console.log(followers);
           }
         })
         .catch((err) => console.log(err));
